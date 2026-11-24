@@ -35,6 +35,7 @@ fixtures/
   testnet-multisig/        account.json  fixture.toml
   whitespace-home-domain/  account.json  fixture.toml
 corpus/
+  capture-log.md
   data-entries.md
   provenance.md
   root-diff.md
@@ -72,8 +73,10 @@ That block is the output of the command above, run in this checkout on 2026-11-0
 fixture changes, the block is stale and the command is not: regenerate rather than trust it.
 A static cross-reference matrix across all nine fixtures and all 24 labels is documented in
 [Shape Label Matrix](corpus/shape-matrix.md). Consolidated account digests, ledger heights, and
-Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md). Specific multi-signature
-threshold triples (low, medium, high) are detailed in [Threshold Combinations Matrix](corpus/thresholds.md).
+Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md), and capture timestamps
+and ledger order are listed in the [Chronological Capture Log](corpus/capture-log.md). Specific
+multi-signature threshold triples (low, medium, high) are detailed in
+[Threshold Combinations Matrix](corpus/thresholds.md).
 
 This corpus says nothing about whether an account is well configured. No expectations, no
 severities, no rule ids: that is Gauge's job. Nothing here holds a secret key, and a
@@ -85,7 +88,7 @@ seed-shaped string (`S...`) is refused by both the capture tool and the validato
 | Indicator | Value | Source |
 |---|---|---|
 | Verified Captures | **9 accounts** (8 Mainnet, 1 Test) | `fixtures/` |
-| Test Suite | **274 passing** | `python -m unittest` |
+| Test Suite | **277 passing** | `python -m unittest` |
 | Integrity Assurance | **SHA-256 sidecars verified** | `validate.py` |
 | Safety Invariant | **Zero secret keys (`S...`)** | Validator enforced |
 <!-- METRICS:END -->
