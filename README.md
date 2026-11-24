@@ -15,7 +15,7 @@
 
 Public Stellar account reads, captured from Horizon and kept honest by a validator.
 
-[Documentation site & Specimen Vault](https://posture-sec.github.io/stellar-account-fixtures/) · [Schema Specification](SCHEMA.md) · [The Nine Accounts](#the-nine-accounts) · [Shape Matrix](corpus/shape-matrix.md) · [Provenance](corpus/provenance.md) · [Signers](corpus/signers.md) · [Thresholds](corpus/thresholds.md) · [Data Entries](corpus/data-entries.md) · [Root Diff](corpus/root-diff.md) · [Adding a Fixture](#adding-a-fixture) · [Contributing](CONTRIBUTING.md)
+[Documentation site & Specimen Vault](https://posture-sec.github.io/stellar-account-fixtures/) · [Schema Specification](SCHEMA.md) · [The Nine Accounts](#the-nine-accounts) · [Shape Matrix](corpus/shape-matrix.md) · [Home Domain Values](corpus/home-domains.md) · [Provenance](corpus/provenance.md) · [Signers](corpus/signers.md) · [Thresholds](corpus/thresholds.md) · [Data Entries](corpus/data-entries.md) · [Root Diff](corpus/root-diff.md) · [Adding a Fixture](#adding-a-fixture) · [Contributing](CONTRIBUTING.md)
 
 Gauge audits the configuration of a real Stellar account. Airlock scans Stellar
 repositories. Both need account-shaped JSON that is not invented: a rule written against
@@ -36,6 +36,7 @@ fixtures/
   whitespace-home-domain/  account.json  fixture.toml
 corpus/
   data-entries.md
+  home-domains.md
   provenance.md
   root-diff.md
   root-public.json
@@ -71,9 +72,11 @@ validate: corpus agrees with itself
 That block is the output of the command above, run in this checkout on 2026-11-03. If a
 fixture changes, the block is stale and the command is not: regenerate rather than trust it.
 A static cross-reference matrix across all nine fixtures and all 24 labels is documented in
-[Shape Label Matrix](corpus/shape-matrix.md). Consolidated account digests, ledger heights, and
-Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md). Specific multi-signature
-threshold triples (low, medium, high) are detailed in [Threshold Combinations Matrix](corpus/thresholds.md).
+[Shape Label Matrix](corpus/shape-matrix.md). The raw values and omitted-key case for
+`home_domain` are tabulated in [Home Domain Values](corpus/home-domains.md). Consolidated
+account digests, ledger heights, and Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md).
+Specific multi-signature threshold triples (low, medium, high) are detailed in
+[Threshold Combinations Matrix](corpus/thresholds.md).
 
 This corpus says nothing about whether an account is well configured. No expectations, no
 severities, no rule ids: that is Gauge's job. Nothing here holds a secret key, and a
