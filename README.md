@@ -38,6 +38,7 @@ fixtures/
   testnet-sponsored/       account.json  fixture.toml
   whitespace-home-domain/  account.json  fixture.toml
 corpus/
+  capture-log.md
   data-entries.md
   home-domains.md
   provenance.md
@@ -72,8 +73,9 @@ fixtures/whitespace-home-domain: blank_home_domain, has_inflation, master_is_sig
 validate: corpus agrees with itself
 ```
 
-That block is the output of the command above, run in this checkout on 2026-11-03. If a
-fixture changes, the block is stale and the command is not: regenerate rather than trust it.
+This block illustrates baseline shapes across the nine baseline specimens. Run
+`python3 validate.py --report` for the current report.
+
 A static cross-reference matrix across all nine fixtures and all 24 labels is documented in
 [Shape Label Matrix](corpus/shape-matrix.md). The raw values and omitted-key case for
 `home_domain` are tabulated in [Home Domain Values](corpus/home-domains.md). Consolidated
@@ -91,7 +93,7 @@ seed-shaped string (`S...`) is refused by both the capture tool and the validato
 | Indicator | Value | Source |
 |---|---|---|
 | Verified Captures | **12 accounts** (10 Mainnet, 2 Test) | `fixtures/` |
-| Test Suite | **278 passing** | `python -m unittest` |
+| Test Suite | **286 passing** | `python -m unittest` |
 | Integrity Assurance | **SHA-256 sidecars verified** | `validate.py` |
 | Safety Invariant | **Zero secret keys (`S...`)** | Validator enforced |
 <!-- METRICS:END -->
@@ -148,6 +150,7 @@ python3 tools/manifest.py
 
 `shape` in the sidecar is the label set to select by. The ids are part of the contract and
 do not get renamed; if a fixture has to be replaced, `SCHEMA.md` section 7 applies.
+For question-driven specimen selection, see [Choosing a Fixture](corpus/choosing-a-fixture.md).
 
 ## Adding a fixture
 
@@ -155,14 +158,22 @@ Only `G...` account ids, only through the tool, and never by hand:
 
 ```
 python3 tools/capture.py --network public --account G... \
-  --id my-new-shape --scenario "one sentence on why this shape is missing"
+  --id my-new-shape --scenario "one sentence on why this shape is missing" --root .
 python3 validate.py
 ```
 
 The tool refuses a `G`-shaped address whose checksum does not verify, refuses an endpoint
 whose `network_passphrase` is not the one that network should have, refuses a response
 that describes a different account, and refuses to write anything containing a
-seed-shaped string. Existing fixtures are not overwritten without `--update`.
+seed-shaped string. `--root` selects the checkout to write into and defaults to the current
+directory. Existing fixtures are not overwritten without `--update`; add it only when
+intentionally replacing a capture:
+
+```
+python3 tools/capture.py --network public --account G... \
+  --id existing-shape --scenario "why this account is being re-captured" \
+  --root /path/to/checkout --update
+```
 `CONTRIBUTING.md` has the rules for a pull request.
 
 ## Coverage gaps, stated
